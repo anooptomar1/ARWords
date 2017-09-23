@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jbJ-ox-1Ij">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EzA-aK-Wdq">
+            <objects>
+                <viewController id="jbJ-ox-1Ij" customClass="ViewController" customModule="ARWords" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7wq-ig-ofV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tml-P7-juv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-0.5" minValue="-2" maxValue="-0.001" translatesAutoresizingMaskIntoConstraints="NO" id="LW7-fs-KAa">
+                                <rect key="frame" x="13" y="587" width="349" height="31"/>
+                                <connections>
+                                    <action selector="textSizeDidChanged:" destination="jbJ-ox-1Ij" eventType="valueChanged" id="6gv-uL-NXg"/>
+                                </connections>
+                            </slider>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="輸入文字..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lcC-sH-VKX">
+                                <rect key="frame" x="142.5" y="45" width="90.5" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="0.49714819785276071" colorSpace="calibratedWhite"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LW7-fs-KAa" firstAttribute="leading" secondItem="t4c-CN-n7h" secondAttribute="leading" constant="15" id="NrC-eq-C00"/>
+                            <constraint firstItem="Tml-P7-juv" firstAttribute="leading" secondItem="t4c-CN-n7h" secondAttribute="leading" id="T03-te-Avx"/>
+                            <constraint firstItem="LW7-fs-KAa" firstAttribute="centerX" secondItem="7wq-ig-ofV" secondAttribute="centerX" id="Vmn-lr-RVf"/>
+                            <constraint firstItem="lcC-sH-VKX" firstAttribute="centerX" secondItem="7wq-ig-ofV" secondAttribute="centerX" id="YIX-eZ-qpL"/>
+                            <constraint firstItem="lcC-sH-VKX" firstAttribute="top" secondItem="t4c-CN-n7h" secondAttribute="top" constant="25" id="YhT-Ya-rmm"/>
+                            <constraint firstItem="Tml-P7-juv" firstAttribute="top" secondItem="7wq-ig-ofV" secondAttribute="top" id="eBr-bv-KAd"/>
+                            <constraint firstItem="Tml-P7-juv" firstAttribute="bottom" secondItem="t4c-CN-n7h" secondAttribute="bottom" id="pwm-Se-eWR"/>
+                            <constraint firstItem="t4c-CN-n7h" firstAttribute="bottom" secondItem="LW7-fs-KAa" secondAttribute="bottom" constant="50" id="t6u-xF-qBW"/>
+                            <constraint firstItem="t4c-CN-n7h" firstAttribute="trailing" secondItem="LW7-fs-KAa" secondAttribute="trailing" constant="15" id="uIG-VD-qBW"/>
+                            <constraint firstItem="Tml-P7-juv" firstAttribute="trailing" secondItem="t4c-CN-n7h" secondAttribute="trailing" id="zXQ-Bu-WXt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="t4c-CN-n7h"/>
+                    </view>
+                    <connections>
+                        <outlet property="sceneView" destination="Tml-P7-juv" id="HIW-f9-Pqo"/>
+                        <outlet property="textInputTextField" destination="lcC-sH-VKX" id="hkp-uq-xIP"/>
+                        <outlet property="textSizeSlider" destination="LW7-fs-KAa" id="kEa-Va-Lji"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VG8-6m-yPy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="180" y="4.9475262368815596"/>
+        </scene>
+    </scenes>
+</document>
