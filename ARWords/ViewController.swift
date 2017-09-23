@@ -9,8 +9,9 @@
 import UIKit
 import SceneKit
 import ARKit
+import ReplayKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, RPPreviewViewControllerDelegate {
 
     // MARK: Property
     
@@ -29,7 +30,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         var x: CGFloat, y: CGFloat, z: CGFloat
     }
     
-    var myTextPosition = textPosition(x: -0.25, y: -0.25, z: -0.3)
+    var myTextPosition = textPosition(x: -0.25, y: 0, z: -0.3)
+    
+    var recordingNow: Bool = false
+
+    @IBOutlet weak var startRecordBtn: UIButton!
+
+    @IBOutlet weak var resetBtn: UIButton!
 
     // MARK: Life Cycle
     
@@ -43,6 +50,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         setUpTextField()
         
         setUpGesture()
+        
+        addARWords("想說什麼？")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,11 +120,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         
         gesture.rotation = 0
     }
-    
-    
+
     @objc func didTap(_ gesture: UITapGestureRecognizer) {
+
+        if recordingNow {
+            
+            self.stopRecording()
+            
+            return
+        }
         
-        print("didTap")
+        let colors: [UIColor] = [ .midiBlack, .midiGreen, .midiRed, .midiYellow, .lightestGrey, .normalGrey, .tintGrey ]
+        
+        let randomColorIndex: Int = Int(arc4random_uniform(7))
+        
+        textGeometry.firstMaterial?.diffuse.contents = colors[randomColorIndex]
     }
     
     @objc func didPan(_ gesture: ThresholdPanGesture) {
@@ -159,7 +178,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         
         textGeometry = SCNText(string: words, extrusionDepth: 2.0)
         
-        textGeometry.firstMaterial?.diffuse.contents = UIColor(red: 62.0/255.0, green: 187.0/255.0, blue: 175.0/255.0, alpha: 1.0)
+        textGeometry.firstMaterial?.diffuse.contents = UIColor.midiRed
         
         textNode = SCNNode(geometry: textGeometry)
         
@@ -202,4 +221,79 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         return false
     }
     
+    // MARK: Recording
+    
+    @IBAction func startRecording(_ sender: Any) {
+        
+        recordingNow = true
+        
+        controlWidget(show: false)
+        
+        RPScreenRecorder.shared().startRecording{ error in
+            
+            print("Record Error")
+        }
+    }
+    
+    func stopRecording() {
+        
+        recordingNow = false
+        
+        RPScreenRecorder.shared().stopRecording { [unowned self] (preview, error) in
+            
+            if let unwrappedPreview = preview {
+                
+                unwrappedPreview.previewControllerDelegate = self
+                
+                self.present(unwrappedPreview, animated: true)
+            }
+        }
+    }
+    
+    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+        
+        dismiss(animated: true)
+        
+        controlWidget(show: true)
+    }
+    
+    func controlWidget(show: Bool) {
+        
+        if show {
+            
+            textSizeSlider.isHidden = false
+            
+            textInputTextField.isHidden = false
+            
+            startRecordBtn.isHidden = false
+            
+            resetBtn.isHidden = false
+            
+        } else {
+            
+            textSizeSlider.isHidden = true
+            
+            textInputTextField.isHidden = true
+            
+            startRecordBtn.isHidden = true
+            
+            resetBtn.isHidden = true
+        }
+    }
+    
+    // MARK: Reset
+    @IBAction func resetARSession(_ sender: Any) {
+        
+        let configuration = ARWorldTrackingConfiguration()
+        
+        configuration.planeDetection = .horizontal
+        
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
+        textInputTextField.text = ""
+        
+        textGeometry = SCNText(string: "", extrusionDepth: 2.0)
+        
+        textNode.removeFromParentNode()
+    }
 }

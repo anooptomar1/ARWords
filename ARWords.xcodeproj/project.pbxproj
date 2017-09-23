@@ -15,6 +15,7 @@
 		65097D9A1F750BF100F84EDA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65097D981F750BF100F84EDA /* LaunchScreen.storyboard */; };
 		65097DA21F763E5700F84EDA /* ThresholdPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65097DA11F763E5700F84EDA /* ThresholdPanGesture.swift */; };
 		65097DA41F763EA300F84EDA /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65097DA31F763EA300F84EDA /* Utilities.swift */; };
+		65097DAB1F76605500F84EDA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65097DAA1F76605500F84EDA /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		65097D9B1F750BF100F84EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65097DA11F763E5700F84EDA /* ThresholdPanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPanGesture.swift; sourceTree = "<group>"; };
 		65097DA31F763EA300F84EDA /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		65097DAA1F76605500F84EDA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				65097DA11F763E5700F84EDA /* ThresholdPanGesture.swift */,
 				65097DA31F763EA300F84EDA /* Utilities.swift */,
+				65097DAA1F76605500F84EDA /* Color.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 				65097D921F750BF100F84EDA /* ViewController.swift in Sources */,
 				65097D8E1F750BF100F84EDA /* AppDelegate.swift in Sources */,
 				65097DA41F763EA300F84EDA /* Utilities.swift in Sources */,
+				65097DAB1F76605500F84EDA /* Color.swift in Sources */,
 				65097DA21F763E5700F84EDA /* ThresholdPanGesture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
