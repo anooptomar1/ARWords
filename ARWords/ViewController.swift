@@ -15,13 +15,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
 
     // MARK: Property
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     @IBOutlet var sceneView: ARSCNView!
     
-    @IBOutlet weak var textSizeSlider: UISlider!
+    @IBOutlet weak var textSizeSlider: UISlider! {
+        
+        didSet {
+            
+            textSizeSlider.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
+
+            textSizeSlider.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint(item: textSizeSlider, attribute: .trailing, relatedBy: .equal, toItem: sceneView, attribute: .trailing, multiplier: 1.0, constant: -20).isActive = true
+            
+            NSLayoutConstraint(item: textSizeSlider, attribute: .width, relatedBy: .equal, toItem: sceneView, attribute: .width, multiplier: 1.0, constant: -250.0).isActive = true
+            
+            NSLayoutConstraint(item: textSizeSlider, attribute: .centerY, relatedBy: .equal, toItem: sceneView, attribute: .centerY, multiplier: 1.0, constant: 0.0).isActive = true
+        }
+    }
     
     @IBOutlet weak var textInputTextField: UITextField!
 
-    var textGeometry: SCNText = SCNText(string: "ARWords", extrusionDepth: 1.0)
+    var textGeometry: SCNText = SCNText(string: "ARWords", extrusionDepth: 3.0)
     
     var textNode: SCNNode = SCNNode()
     
@@ -30,13 +48,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         var x: CGFloat, y: CGFloat, z: CGFloat
     }
     
-    var myTextPosition = textPosition(x: -0.25, y: 0, z: -0.3)
+    var myTextPosition = textPosition(x: -0.5, y: -0.25, z: -0.3)
+    
+    var myTextScale: Float = 0.01
     
     var recordingNow: Bool = false
 
     @IBOutlet weak var startRecordBtn: UIButton!
 
     @IBOutlet weak var resetBtn: UIButton!
+    
+    @IBOutlet weak var addWordsBtn: UIButton!
+
+    var colorIndex: Int = 0
 
     // MARK: Life Cycle
     
@@ -45,6 +69,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         
         setupCamera()
         
+        setUpStartRecordBtn()
+        
         setUpARSCNView()
         
         setUpTextField()
@@ -52,6 +78,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         setUpGesture()
         
         addARWords("想說什麼？")
+        
+        textInputTextField.text = "想說什麼？"
+        
+        textInputTextField.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +116,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         camera.maximumExposure = 3
     }
     
+    func setUpStartRecordBtn() {
+        
+        startRecordBtn.layer.cornerRadius = startRecordBtn.bounds.size.width / 2.0
+        
+        startRecordBtn.layer.borderWidth = 10.0
+        
+        startRecordBtn.layer.borderColor = UIColor(red: 51.0 / 255.0, green: 51.0 / 255.0, blue: 51.0 / 255.0, alpha: 1.0).cgColor
+    }
+    
     func setUpARSCNView() {
 
         sceneView.delegate = self
@@ -110,6 +149,32 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         rotationGesture.delegate = self
         
         sceneView.addGestureRecognizer(rotationGesture)
+        
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(_:)))
+        
+        sceneView.addGestureRecognizer(pinchGesture)
+    }
+    
+    @objc func didPinch(_ gesture: UIPinchGestureRecognizer) {
+
+        switch gesture.state {
+        
+        case .began, .changed:
+            
+            if abs(gesture.velocity) > 1 {
+            
+                self.myTextScale = Float(gesture.scale) / 100.0
+                
+            }
+            
+        case .ended:
+            
+            gesture.scale = 1.0
+
+        default:
+            
+            break
+        }
     }
     
     @objc func didRotate(_ gesture: UIRotationGestureRecognizer) {
@@ -123,18 +188,36 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
 
     @objc func didTap(_ gesture: UITapGestureRecognizer) {
 
+        print("didTap")
+        
         if recordingNow {
+        
+            let alertController = UIAlertController(title: "", message: "您要停止錄影嗎？", preferredStyle: .alert)
+        
+            let defaultAction = UIAlertAction(title: "好的", style: .default) { _ in
             
-            self.stopRecording()
+                self.stopRecording()
             
+            }
+        
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+            alertController.addAction(defaultAction)
+        
+            alertController.addAction(cancelAction)
+        
+            present(alertController, animated: true, completion: nil)
+
             return
         }
         
-        let colors: [UIColor] = [ .midiBlack, .midiGreen, .midiRed, .midiYellow, .lightestGrey, .normalGrey, .tintGrey ]
+        let colors: [UIColor] = [ .cubicWhite, .cubicGreenBlue, .cubicBlue, .cubicPink, .cubicBlack, .cubicGreen, .cubicOrange, .cubicYellow ]
         
-        let randomColorIndex: Int = Int(arc4random_uniform(7))
+        let index: Int = colorIndex % colors.count
         
-        textGeometry.firstMaterial?.diffuse.contents = colors[randomColorIndex]
+        textGeometry.firstMaterial?.diffuse.contents = colors[index]
+        
+        colorIndex += 1
     }
     
     @objc func didPan(_ gesture: ThresholdPanGesture) {
@@ -158,6 +241,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
     func updateObjectToCurrentTrackingPosition() {
         
         textNode.position = SCNVector3(myTextPosition.x, myTextPosition.y, myTextPosition.z)
+        
+        textNode.scale = SCNVector3( myTextScale,  myTextScale, myTextScale)
 
     }
     
@@ -176,21 +261,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         
         let scene = SCNScene()
         
-        textGeometry = SCNText(string: words, extrusionDepth: 2.0)
+        textGeometry = SCNText(string: words, extrusionDepth: 1.0)
         
-        textGeometry.firstMaterial?.diffuse.contents = UIColor.midiRed
+        textGeometry.font = UIFont(name: "Arial", size: 10)
+        
+        textGeometry.flatness = 0.2
+        
+        textGeometry.firstMaterial?.diffuse.contents = UIColor.cubicYellow
         
         textNode = SCNNode(geometry: textGeometry)
         
         textNode.position = SCNVector3(myTextPosition.x, myTextPosition.y, myTextPosition.z)
         
-        textNode.scale = SCNVector3(0.01,0.01,0.01)
+        textNode.scale = SCNVector3( myTextScale,  myTextScale, myTextScale)
         
         scene.rootNode.addChildNode(textNode)
 
         sceneView.scene = scene
     }
 
+    @IBAction func addWordBtnClicked(_ sender: Any) {
+        
+        textInputTextField.becomeFirstResponder()
+        
+    }
+    
     @IBAction func textSizeDidChanged(_ sender: UISlider) {
         
         myTextPosition.z = CGFloat(sender.value)
@@ -225,26 +320,40 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
     
     @IBAction func startRecording(_ sender: Any) {
         
-        recordingNow = true
-        
         controlWidget(show: false)
+        
+        recordingNow = true
         
         RPScreenRecorder.shared().startRecording{ error in
             
-            print("Record Error")
+            if let error = error {
+                
+                print("start recording error " + error.localizedDescription)
+                
+                return
+            }
         }
     }
     
     func stopRecording() {
         
-        recordingNow = false
-        
         RPScreenRecorder.shared().stopRecording { [unowned self] (preview, error) in
-            
+
+            if let error = error {
+
+                print("stop recording error" + error.localizedDescription)
+
+                return
+            }
+
+            self.controlWidget(show: true)
+
+            self.recordingNow = false
+
             if let unwrappedPreview = preview {
-                
+
                 unwrappedPreview.previewControllerDelegate = self
-                
+
                 self.present(unwrappedPreview, animated: true)
             }
         }
@@ -263,11 +372,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
             
             textSizeSlider.isHidden = false
             
-            textInputTextField.isHidden = false
+            textInputTextField.isHidden = true
             
             startRecordBtn.isHidden = false
             
             resetBtn.isHidden = false
+            
+            addWordsBtn.isHidden = false
             
         } else {
             
@@ -278,6 +389,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
             startRecordBtn.isHidden = true
             
             resetBtn.isHidden = true
+            
+            addWordsBtn.isHidden = true
         }
     }
     
@@ -290,10 +403,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, 
         
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
-        textInputTextField.text = ""
-        
-        textGeometry = SCNText(string: "", extrusionDepth: 2.0)
-        
         textNode.removeFromParentNode()
+        
+        if let word = textInputTextField.text {
+            
+            addARWords(word)
+        }
     }
 }

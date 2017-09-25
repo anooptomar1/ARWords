@@ -10,18 +10,19 @@ import UIKit
 
 extension UIColor {
     
-    static let midiGreen = UIColor(red: 62.0 / 255.0, green: 187.0 / 255.0, blue: 175.0 / 255.0, alpha: 1.0)
+    static let cubicBlack = UIColor(red: 51.0 / 255.0, green: 51.0 / 255.0, blue: 51.0 / 255.0, alpha: 1.0)
     
-    static let midiYellow = UIColor(red: 255.0 / 255.0, green: 204.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0)
+    static let cubicBlue = UIColor(red: 102.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
     
-    static let midiRed = UIColor(red: 255.0 / 255.0, green: 126.0 / 255.0, blue: 121.0 / 255.0, alpha: 1.0)
+    static let cubicGreenBlue = UIColor(red: 102.0 / 255.0, green: 255.0 / 255.0, blue: 204.0 / 255.0, alpha: 1.0)
     
-    static let midiBlack = UIColor(red: 51.0 / 255.0, green: 51.0 / 255.0, blue: 51.0 / 255.0, alpha: 1.0)
+    static let cubicGreen = UIColor(red: 0.0 / 255.0, green: 128.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0)
     
-    static let lightestGrey = UIColor(red: 235.0 / 255.0, green: 235.0 / 255.0, blue: 235.0 / 255.0, alpha: 1.0)
+    static let cubicYellow = UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0)
     
-    static let tintGrey = UIColor(red: 214.0 / 255.0, green: 214.0 / 255.0, blue: 214.0 / 255.0, alpha: 1.0)
+    static let cubicOrange = UIColor(red: 255.0 / 255.0, green: 128.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0)
     
-    static let normalGrey = UIColor(red: 129.0 / 255.0, green: 129.0 / 255.0, blue: 129.0 / 255.0, alpha: 1.0)
-
+    static let cubicWhite = UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
+    
+    static let cubicPink = UIColor(red: 255.0 / 255.0, green: 199.0 / 255.0, blue: 203.0 / 255.0, alpha: 1.0)
 }

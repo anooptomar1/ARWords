@@ -20,24 +20,15 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tml-P7-juv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-0.5" minValue="-2" maxValue="-0.001" translatesAutoresizingMaskIntoConstraints="NO" id="LW7-fs-KAa">
-                                <rect key="frame" x="13" y="587" width="349" height="31"/>
-                                <connections>
-                                    <action selector="textSizeDidChanged:" destination="jbJ-ox-1Ij" eventType="valueChanged" id="6gv-uL-NXg"/>
-                                </connections>
-                            </slider>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="輸入文字..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lcC-sH-VKX">
-                                <rect key="frame" x="142.5" y="45" width="90.5" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="0.49714819785276071" colorSpace="calibratedWhite"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmZ-2s-PQb">
-                                <rect key="frame" x="168" y="511" width="38" height="33"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5019411426380368" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="152" y="567" width="70" height="70"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="Rz6-sM-FeM"/>
+                                    <constraint firstAttribute="height" constant="70" id="onv-As-6iw"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Start">
+                                <state key="normal">
                                     <color key="titleColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -45,40 +36,68 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h61-AA-c7g">
-                                <rect key="frame" x="20" y="20" width="39" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.50309144938650308" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Reset">
-                                    <color key="titleColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="20" y="20" width="30" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="27"/>
+                                <state key="normal" title="⟳">
+                                    <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="resetARSession:" destination="jbJ-ox-1Ij" eventType="touchUpInside" id="zzZ-69-fLT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EeO-bY-zke">
+                                <rect key="frame" x="305" y="20" width="60" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="HFQ-vy-lGx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                <state key="normal" title="A">
+                                    <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="addWordBtnClicked:" destination="jbJ-ox-1Ij" eventType="touchUpInside" id="UXz-qb-Tpz"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-0.5" minValue="-2" maxValue="-0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="LW7-fs-KAa">
+                                <rect key="frame" x="35.5" y="318.5" width="304" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="minimumTrackTintColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="textSizeDidChanged:" destination="jbJ-ox-1Ij" eventType="valueChanged" id="6gv-uL-NXg"/>
+                                </connections>
+                            </slider>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="想說什麼？" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gs7-WC-nzJ">
+                                <rect key="frame" x="141.5" y="70" width="92.5" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="t4c-CN-n7h" firstAttribute="bottom" secondItem="kmZ-2s-PQb" secondAttribute="bottom" constant="30" id="1oa-SZ-9bY"/>
+                            <constraint firstItem="EeO-bY-zke" firstAttribute="top" secondItem="t4c-CN-n7h" secondAttribute="top" id="CKe-cD-QLS"/>
+                            <constraint firstItem="gs7-WC-nzJ" firstAttribute="top" secondItem="t4c-CN-n7h" secondAttribute="top" constant="50" id="HC3-IE-fM7"/>
                             <constraint firstItem="h61-AA-c7g" firstAttribute="leading" secondItem="t4c-CN-n7h" secondAttribute="leading" constant="20" id="IBZ-XQ-Fmd"/>
                             <constraint firstItem="kmZ-2s-PQb" firstAttribute="centerX" secondItem="7wq-ig-ofV" secondAttribute="centerX" id="L2Y-3B-Z3f"/>
-                            <constraint firstItem="LW7-fs-KAa" firstAttribute="leading" secondItem="t4c-CN-n7h" secondAttribute="leading" constant="15" id="NrC-eq-C00"/>
+                            <constraint firstItem="t4c-CN-n7h" firstAttribute="trailing" secondItem="EeO-bY-zke" secondAttribute="trailing" constant="10" id="QKg-zN-LKi"/>
                             <constraint firstItem="Tml-P7-juv" firstAttribute="leading" secondItem="t4c-CN-n7h" secondAttribute="leading" id="T03-te-Avx"/>
-                            <constraint firstItem="LW7-fs-KAa" firstAttribute="top" secondItem="kmZ-2s-PQb" secondAttribute="bottom" constant="43" id="Tdv-9p-kd0"/>
-                            <constraint firstItem="LW7-fs-KAa" firstAttribute="centerX" secondItem="7wq-ig-ofV" secondAttribute="centerX" id="Vmn-lr-RVf"/>
-                            <constraint firstItem="lcC-sH-VKX" firstAttribute="centerX" secondItem="7wq-ig-ofV" secondAttribute="centerX" id="YIX-eZ-qpL"/>
-                            <constraint firstItem="lcC-sH-VKX" firstAttribute="top" secondItem="t4c-CN-n7h" secondAttribute="top" constant="25" id="YhT-Ya-rmm"/>
                             <constraint firstItem="Tml-P7-juv" firstAttribute="top" secondItem="7wq-ig-ofV" secondAttribute="top" id="eBr-bv-KAd"/>
                             <constraint firstItem="h61-AA-c7g" firstAttribute="top" secondItem="t4c-CN-n7h" secondAttribute="top" id="foZ-21-BFo"/>
                             <constraint firstItem="Tml-P7-juv" firstAttribute="bottom" secondItem="t4c-CN-n7h" secondAttribute="bottom" id="pwm-Se-eWR"/>
-                            <constraint firstItem="t4c-CN-n7h" firstAttribute="bottom" secondItem="LW7-fs-KAa" secondAttribute="bottom" constant="50" id="t6u-xF-qBW"/>
-                            <constraint firstItem="t4c-CN-n7h" firstAttribute="trailing" secondItem="LW7-fs-KAa" secondAttribute="trailing" constant="15" id="uIG-VD-qBW"/>
+                            <constraint firstItem="gs7-WC-nzJ" firstAttribute="centerX" secondItem="7wq-ig-ofV" secondAttribute="centerX" id="rhm-Ue-eGj"/>
                             <constraint firstItem="Tml-P7-juv" firstAttribute="trailing" secondItem="t4c-CN-n7h" secondAttribute="trailing" id="zXQ-Bu-WXt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t4c-CN-n7h"/>
                     </view>
                     <connections>
+                        <outlet property="addWordsBtn" destination="EeO-bY-zke" id="sIA-Pe-uSZ"/>
                         <outlet property="resetBtn" destination="h61-AA-c7g" id="ZhT-8W-MrA"/>
                         <outlet property="sceneView" destination="Tml-P7-juv" id="HIW-f9-Pqo"/>
                         <outlet property="startRecordBtn" destination="kmZ-2s-PQb" id="9Xg-yS-c88"/>
-                        <outlet property="textInputTextField" destination="lcC-sH-VKX" id="hkp-uq-xIP"/>
+                        <outlet property="textInputTextField" destination="gs7-WC-nzJ" id="IGD-nF-pRn"/>
                         <outlet property="textSizeSlider" destination="LW7-fs-KAa" id="kEa-Va-Lji"/>
                     </connections>
                 </viewController>
